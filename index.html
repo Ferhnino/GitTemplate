@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DutchNyquil — SOC Analyst &amp; Security Engineer</title>
+<meta name="description" content="Portfolio of a SOC analyst and security engineer specializing in detection engineering, KQL, and security tooling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <nav class="nav">
+      <span class="nav-mark">/soc</span>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#build">Build</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>DutchNyquil</h1>
+        <p class="role">SOC Analyst &amp; Security Engineer</p>
+        <p class="pitch">I work as a SOC analyst and security engineer, split between day-to-day incident
+          response and the engineering side of the job — configuring Azure log ingestion and building the
+          tooling my team doesn't have off the shelf.</p>
+      </div>
+
+      <div class="feed-panel" aria-label="threat-feed-lite ingest status">
+        <div class="feed-head">
+          <span class="feed-title">threat-feed-lite — ingest status</span>
+          <span class="feed-cadence">hourly</span>
+        </div>
+        <ul class="feed-rows">
+          <li><span class="dot"></span><span class="feed-source">CISA KEV</span><span class="feed-meta">vulnerability</span></li>
+          <li><span class="dot"></span><span class="feed-source">MalwareBazaar</span><span class="feed-meta">IOC feed</span></li>
+          <li><span class="dot"></span><span class="feed-source">ThreatFox</span><span class="feed-meta">IOC feed</span></li>
+          <li><span class="dot"></span><span class="feed-source">AlienVault OTX</span><span class="feed-meta">pulse feed</span></li>
+          <li><span class="dot"></span><span class="feed-source">NVD CVE</span><span class="feed-meta">vulnerability</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="about" class="section">
+    <div class="wrap">
+      <h2>About</h2>
+      <p class="lead">
+        <!-- EDIT: adjust this bio to your own voice/details -->
+        I work threat intelligence day to day — building dashboards, producing baseline reports, and
+        feeding both into the team's threat hunts. Most of that runs through Microsoft KQL, and I'm
+        comfortable working through Logic Apps and Data Collection Rules to get the right data flowing
+        in the first place. Outside of work, I build my own security tools to support threat intel
+        gathering on my own time.
+        <!-- /EDIT -->
+      </p>
+      <div class="chip-row">
+        <span class="chip">KQL</span>
+        <span class="chip">Microsoft Sentinel</span>
+        <span class="chip">Python</span>
+        <span class="chip">MITRE ATT&amp;CK</span>
+        <span class="chip">Regex</span>
+        <span class="chip">Azure log ingestion</span>
+      </div>
+      <div class="cred-row">
+        <span class="cred">SC-200: Security Operations Analyst</span>
+        <span class="cred">SC-300: Identity and Access Administrator</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="build" class="section section-alt">
+    <div class="wrap">
+      <h2>Featured build</h2>
+      <h3 class="project-title">threat-feed-lite</h3>
+      <p class="project-tagline">A lightweight threat-intelligence aggregator, built to replace a full OpenCTI
+        deployment with something one analyst can actually run and maintain.</p>
+
+      <div class="story">
+        <div class="story-block">
+          <p class="story-label">The problem</p>
+          <p>I'd built a full OpenCTI instance — Docker Compose, a VM with 28GB of RAM, a dozen connectors —
+            and it worked, but it was more infrastructure than a single analyst needs for day-to-day
+            intelligence gathering. Standing it up taught me a lot; running it long-term wasn't worth the
+            overhead.</p>
+        </div>
+        <div class="story-block">
+          <p class="story-label">What I built instead</p>
+          <p>threat-feed-lite runs directly on my desktop — no VM, no web app. It ingests feeds into SQLite
+            with entity and relationship extraction, has a small native Tkinter interface, and connects to
+            Claude Desktop over MCP so I can query and correlate the dataset in plain language instead of
+            hand-writing SQL. Findings get saved as local markdown reports. On top of that, Claude can
+            score candidate hunt topics against the dataset — ranking them by relevance, impact, and
+            coverage gap — and draft a full write-up from there.</p>
+          <div class="stat-row">
+            <div class="stat"><span class="stat-num">53,181</span><span class="stat-label">articles ingested</span></div>
+            <div class="stat"><span class="stat-num">5,785</span><span class="stat-label">entities extracted</span></div>
+            <div class="stat"><span class="stat-num">36,375</span><span class="stat-label">relationships mapped</span></div>
+          </div>
+          <figure class="shot">
+            <img src="images/dashboard-ui.png" alt="threat-feed-lite desktop dashboard showing article counts, entity and relationship totals, and a searchable table of ingested threat data" loading="lazy">
+            <figcaption>The dashboard — browse and search the aggregated dataset directly, no query language required.</figcaption>
+          </figure>
+        </div>
+        <div class="story-block">
+          <p class="story-label">Keeping it running</p>
+          <p>Ingestion is scheduled hourly through Windows Task Scheduler, tuned to skip cleanly if the
+            machine is asleep and catch up on the next run rather than forcing a wake.</p>
+          <figure class="shot">
+            <img src="images/ingest-terminal.png" alt="Terminal output showing a scheduled threat-feed-lite ingest run polling each connected source in turn" loading="lazy">
+            <figcaption>A scheduled ingest run working through every connected source.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="feed-table">
+          <thead>
+            <tr><th>Source</th><th>Type</th><th>Method</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CISA KEV</td><td>Vulnerability feed</td><td>API</td></tr>
+            <tr><td>NVD CVE</td><td>Vulnerability feed</td><td>API</td></tr>
+            <tr><td>CISA advisories &amp; analysis reports</td><td>Advisory feed</td><td>RSS</td></tr>
+            <tr><td>Google Cloud / Mandiant</td><td>Threat reporting</td><td>RSS</td></tr>
+            <tr><td>Cisco Talos</td><td>Threat reporting</td><td>RSS</td></tr>
+            <tr><td>SentinelOne Labs</td><td>Threat reporting</td><td>RSS</td></tr>
+            <tr><td>BleepingComputer</td><td>Security news</td><td>RSS</td></tr>
+            <tr><td>The Hacker News</td><td>Security news</td><td>RSS</td></tr>
+            <tr><td>Malpedia</td><td>Malware reference</td><td>API</td></tr>
+            <tr><td>ThreatFox</td><td>IOC feed</td><td>API</td></tr>
+            <tr><td>URLhaus</td><td>IOC feed</td><td>API</td></tr>
+            <tr><td>MalwareBazaar</td><td>IOC feed</td><td>API</td></tr>
+            <tr><td>AbuseIPDB</td><td>IOC feed</td><td>API</td></tr>
+            <tr><td>AlienVault OTX</td><td>IOC / pulse feed</td><td>API</td></tr>
+            <tr><td>MITRE ATT&amp;CK</td><td>Technique reference</td><td>API</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="skills-demonstrated">
+        <strong>Skills demonstrated:</strong> Python, SQLite &amp; data modeling, REST API integration,
+        entity extraction, task automation, natural-language data interfaces (MCP).
+      </p>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="wrap">
+      <h2>Skills</h2>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <p class="skill-group-label">Detection &amp; hunting</p>
+          <p>KQL, Microsoft Sentinel, MITRE ATT&amp;CK mapping, log analysis</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Engineering &amp; automation</p>
+          <p>Python, SQLite, REST API integration, regex, Windows Task Scheduler automation, Azure log
+            ingestion &amp; schema design</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Certifications</p>
+          <p>SC-200: Security Operations Analyst · SC-300: Identity and Access Administrator</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Team tooling</p>
+          <p>SharePoint, Power Automate, Power Apps, Azure DevOps</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact" class="hero contact">
+  <div class="wrap contact-inner">
+    <h2>Get in touch</h2>
+    <ul class="contact-list">
+      <!-- EDIT: fill in your real links -->
+      <li><span>Email</span><a href="mailto:your.email@example.com">your.email@example.com</a></li>
+      <li><span>GitHub</span><a href="https://github.com/yourusername">github.com/yourusername</a></li>
+      <li><span>LinkedIn</span><a href="https://linkedin.com/in/yourusername">linkedin.com/in/yourusername</a></li>
+      <!-- /EDIT -->
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
