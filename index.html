@@ -99,9 +99,11 @@
           <p>threat-feed-lite runs directly on my desktop — no VM, no web app. It ingests feeds into SQLite
             with entity and relationship extraction, has a small native Tkinter interface, and connects to
             Claude Desktop over MCP so I can query and correlate the dataset in plain language instead of
-            hand-writing SQL. Findings get saved as local markdown reports. On top of that, Claude can
-            score candidate hunt topics against the dataset — ranking them by relevance, impact, and
-            coverage gap — and draft a full write-up from there.</p>
+            hand-writing SQL. Findings get saved as local markdown reports. On top of that, I built a
+            repeatable workflow for Claude to run against the dataset: gather everything relevant to a
+            topic and map how the actors, malware, and techniques connect, tier each finding by recency
+            and confidence, report back before writing anything, and only then populate a formatted hunt
+            report once I've signed off on scope.</p>
           <div class="stat-row">
             <div class="stat"><span class="stat-num">53,181</span><span class="stat-label">articles ingested</span></div>
             <div class="stat"><span class="stat-num">5,785</span><span class="stat-label">entities extracted</span></div>
